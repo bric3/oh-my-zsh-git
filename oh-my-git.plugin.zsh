@@ -1,5 +1,7 @@
 # Based on the work of fabulous work of Arialdo Martini
 # https://github.com/arialdomartini/oh-my-git/
+#
+# Code taken from : https://github.com/arialdomartini/oh-my-git/pull/22
 
 function oh_my_git_info {
 	local oh_my_git_string="";
