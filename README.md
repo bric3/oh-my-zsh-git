@@ -52,3 +52,7 @@ And finally use the main function in your theme. For example to place it in the 
 RPROMPT='$(oh_my_git_info)'
 ```
 
+## Demo
+
+A rather long demo with [asciinema](https://asciinema.org/a/10426)
+
