@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Oh-my-git-4-oh-my-zsh by bric3</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Oh-my-git-4-oh-my-zsh</h1>
+        <p class="header">An opinionated git prompt status, tailored for oh-my-zsh</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/bric3/oh-my-git-4-oh-my-zsh/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/bric3/oh-my-git-4-oh-my-zsh/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/bric3/oh-my-git-4-oh-my-zsh">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/bric3">bric3</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="oh-my-git-for-oh-my-zsh" class="anchor" href="#oh-my-git-for-oh-my-zsh"><span class="octicon octicon-link"></span></a>oh-my-git <em>for</em> oh-my-zsh</h1>
+
+<p>This plugin is an opinionated git prompt status, tailored for <a href="https://github.com/robbyrussell/oh-my-zsh"><strong>oh-my-zsh</strong></a>. It is based on the work of <a href="https://github.com/arialdomartini/oh-my-git/">fabulous work</a> of Arialdo Martini. </p>
+
+<p>This derivative fork is taken from my pull request on his project <a href="https://github.com/arialdomartini/oh-my-git/pull/22">there</a>.</p>
+
+<h2>
+<a name="abstract" class="anchor" href="#abstract"><span class="octicon octicon-link"></span></a>Abstract</h2>
+
+<p>This new git information script (<code>oh-my-git.plugin.zsh</code>)</p>
+
+<ul>
+<li>is not rely on a prompt shell anymore</li>
+<li>is using configurable color codes</li>
+<li>doesn't leak variables</li>
+<li>does not depend on external configuration</li>
+<li>offers configurable color codes per symbol</li>
+<li>has a more understandable name, that can be easily used in another context (I'm using it in my own crafted oh-my-zsh theme, though it's named <code>oh-my-git.plugin.zsh</code>)</li>
+<li>offers suffix and prefix config</li>
+<li>enables toggling of the display of the git repository symbol (<code>display_git_symbol</code>)</li>
+<li>enables to toggle if empty spaces for <em>off</em> flags will be displayed (<code>use_color_off=false</code> and flag is off, toggable with <code>print_unactive_flags_space</code>)</li>
+<li>enables toggling per git repository config <code>git config --get oh-my-zsh.hide-status</code>
+</li>
+<li>displays current git action (<code>REBASE-i</code>, <code>REBASE-m</code>, <code>REBASE</code>, <code>AM/REBASE</code>, <code>MERGING</code>, <code>BISECTING</code>, <code>CHERRY-PICKING</code>)</li>
+</ul><h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>This install assume the current shell is <strong>ZSH</strong> with <a href="https://github.com/robbyrussell/oh-my-zsh"><strong>oh-my-zsh</strong></a> already installed.</p>
+
+<p>Install a clone of this repository in oh-my-zsh plugin <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Customization">custom folder</a>. *Note it is possible to change the default custom directory of oh-my-zsh by redefining the <code>$ZSH_CUSTOM</code> in the <code>.zshrc</code> *</p>
+
+<div class="highlight highlight-bash"><pre>git clone git@github.com:bric3/oh-my-git-4-oh-my-zsh.git <span class="nv">$ZSH_CUSTOM</span>/oh-my-git
+</pre></div>
+
+<p>This will make <em>oh-my-git</em> available as a plugin for <em>oh-my-zsh</em>. Now you still need to activate it. In your <code>.zshrc</code> just activate the plugin by adding <code>oh-my-git</code> to the <code>plugins</code> variable :</p>
+
+<pre><code>plugins=(
+ # custom plugins
+ git2
+ oh-my-git
+
+ # bundled plugins
+ github
+ osx
+ mosh
+ ...
+</code></pre>
+
+<p>And finally use the main function in your theme. For example to place it in the right part of your theme use the <code>RPROMPT</code> environment variable : </p>
+
+<pre><code>RPROMPT='$(oh_my_git_info)'
+</code></pre>
+
+<h2>
+<a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h2>
+
+<p>A rather long demo with <a href="https://asciinema.org/a/10426">asciinema</a></p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
