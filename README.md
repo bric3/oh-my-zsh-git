@@ -5,6 +5,7 @@ This plugin is an opinionated git prompt status, tailored for [**oh-my-zsh**](ht
 
 This derivative fork is taken from my pull request on his project [there](https://github.com/arialdomartini/oh-my-git/pull/22).
 
+![oh-my-git in action](http://bric3.github.io/oh-my-git-4-oh-my-zsh/images/oh-my-git.in.action.png)
 
 ## Abstract
 
@@ -21,7 +22,8 @@ This new git information script (`oh-my-git.plugin.zsh`)
    * enables toggling per git repository config `git config --get oh-my-zsh.hide-status`
    * displays current git action (`REBASE-i`, `REBASE-m`, `REBASE`, `AM/REBASE`, `MERGING`, `BISECTING`, `CHERRY-PICKING`)
 
-## Install
+
+## Installation
 
 This install assume the current shell is **ZSH** with [**oh-my-zsh**](https://github.com/robbyrussell/oh-my-zsh) already installed.
 
