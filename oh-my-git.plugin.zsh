@@ -25,13 +25,24 @@ function oh_my_git_info {
 	local oh_my_git_string="";
 
 	# Colors
-	local on="${omg_on:-\[\e[0;37m\]}";
-	local off="${omg_off:-\[\e[1;30m\]}";
-	local red="${omg_red:-\[\e[0;31m\]}";
-	local green="${omg_green:-\[\e[0;32m\]}";
-	local yellow="${omg_yellow:-\[\e[0;33m\]}";
-	local violet="${omg_violet:-\[\e[0;35m\]}";
-	local reset="${omg_reset:-\[\e[0m\]}";
+	if [ -n "$ZSH_VERSION" ]; then
+		local on="${omg_on:-%B}";
+		local off="${omg_off:-%b}";
+		local red="${omg_red:-%F{red}}";
+		local green="${omg_green:-%F{green}}";
+		local yellow="${omg_yellow:-%F{yellow}}";
+		local violet="${omg_violet:-%F{magenta}}";
+		local reset="${omg_reset:-%{%f%k%b%}}";
+	else
+		local on="${omg_on:-\[\e[0;37m\]}";
+		local off="${omg_off:-\[\e[1;30m\]}";
+		local red="${omg_red:-\[\e[0;31m\]}";
+		local green="${omg_green:-\[\e[0;32m\]}";
+		local yellow="${omg_yellow:-\[\e[0;33m\]}";
+		local violet="${omg_violet:-\[\e[0;35m\]}";
+		local reset="${omg_reset:-\[\e[0m\]}";
+	fi
+
 	
 	# Symbols
 	if [[ -z "${is_a_git_repo_symbol}" ]]; then local is_a_git_repo_symbol="±"; fi
