@@ -1,12 +1,9 @@
 oh-my-git-4-oh-my-zsh
 =====================
 
-An opinionated git prompt status, tailored for oh-my-zsh
+This plugin is an opinionated git prompt status, tailored for [**oh-my-zsh**](https://github.com/robbyrussell/oh-my-zsh). It is based on the work of [fabulous work](https://github.com/arialdomartini/oh-my-git/) of Arialdo Martini. 
 
-Based on the work of fabulous work of Arialdo Martini
-https://github.com/arialdomartini/oh-my-git/
-
-This derivative fork is taken from my pull request on his project here : https://github.com/arialdomartini/oh-my-git/pull/22
+This derivative fork is taken from my pull request on his project [there](https://github.com/arialdomartini/oh-my-git/pull/22).
 
 
 ## Abstract
