@@ -35,7 +35,8 @@ This install assume the current shell is **ZSH** with [**oh-my-zsh**](https://gi
 Install a clone of this repository in oh-my-zsh plugin [custom folder](https://github.com/robbyrussell/oh-my-zsh/wiki/Customization). *Note it is possible to change the default custom directory of oh-my-zsh by redefining the `$ZSH_CUSTOM` in the `.zshrc` *
 
 ```bash
-git clone git@github.com:bric3/oh-my-git-4-oh-my-zsh.git $ZSH_CUSTOM/oh-my-git
+mkdir -p $ZSH_CUSTOM/plugins
+git clone git@github.com:bric3/oh-my-git-4-oh-my-zsh.git $ZSH_CUSTOM/plugins/oh-my-git
 ```
 
 This will make _oh-my-git_ available as a plugin for _oh-my-zsh_. Now you still need to activate it. In your `.zshrc` just activate the plugin by adding `oh-my-git` to the `plugins` variable :
