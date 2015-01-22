@@ -43,7 +43,7 @@ git clone git@github.com:bric3/oh-my-git-4-oh-my-zsh.git $ZSH_CUSTOM/plugins/oh-
 
 This will make _oh-my-git_ available as a plugin for _oh-my-zsh_. Now you still need to activate it. In your `.zshrc` just activate the plugin by adding `oh-my-git` to the `plugins` variable :
 
-```
+```bash
 plugins=(
  # custom plugins
  git2
@@ -56,9 +56,9 @@ plugins=(
  ...
 ```
 
-And finally use the main function in your theme. For example to place it in the right part of your theme use the `RPROMPT` environment variable : 
+Finally use the main function of the plugin `oh_my_git_info` in the variables in your theme `PROMPT` or `RPROMPT`. For example to place it in the right part of your theme use the `RPROMPT` environment variable : 
 
-```
+```bash
 RPROMPT='$(oh_my_git_info)'
 ```
 
