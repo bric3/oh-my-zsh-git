@@ -1,11 +1,13 @@
-oh-my-git _for_ oh-my-zsh
-=========================
+oh-my-zsh-git
+=============
 
-This plugin is an opinionated git prompt status, tailored for [**oh-my-zsh**](https://github.com/robbyrussell/oh-my-zsh). It is based on the work of [fabulous work](https://github.com/arialdomartini/oh-my-git/) of Arialdo Martini. 
+This plugin is an opinionated git prompt status, tailored for [**oh-my-zsh**](https://github.com/robbyrussell/oh-my-zsh). It is based on the work of [fabulous work](https://github.com/arialdomartini/oh-my-git/) of Arialdo Martini.
+
+In other word it is _oh_my_git_ for _oh_my_zsh_.
 
 This derivative fork is taken from my pull request on his project [there](https://github.com/arialdomartini/oh-my-git/pull/22).
 
-![oh-my-git in action](http://bric3.github.io/oh-my-git-4-oh-my-zsh/images/oh-my-git.in.action.png)
+![oh-my-git in action](http://bric3.github.io/oh-my-zsh-git/images/oh-my-git.in.action.png)
 
 ## Reading the abstract
 
