@@ -164,5 +164,4 @@ reset                              | `%{%f%k%b%}`
 
 A rather long demo with [asciinema](https://asciinema.org/a/10426)
 
-
-<script type="text/javascript" src="https://asciinema.org/a/10426.js" id="asciicast-10426" async></script>
+[![asciicast](https://asciinema.org/a/10426.png)](https://asciinema.org/a/10426)
