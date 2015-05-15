@@ -43,45 +43,44 @@ function oh_my_git_info {
 		local reset="${omg_reset:-\[\e[0m\]}";
 	fi
 
-	
 	# Some unicode chars : ⚯᠁ះ⊶☍⧲⧬⧂»⇅〜✚-⫘
 	# ⚙ ♨ ♋ ㍖♫𝄢♬♪𝄆𝄇𝄈𝄐〖⦖〘〙》〰︴෴⸚⌁⌀⌖𝌁⿓⎃☢☣☠☤⚕☸⚔☉♁☄⚚⚛  ⌘⎋⏎⌤⌥⌃⌅⇧⇪⌫⌦⇥⬆⬇⬍✔✘✖✭☲✎⌫ᄉ⇅⚯»Ⴤ↶↑±
 	# Symbols
 	if [[ -z "${is_a_git_repo_symbol}" ]]; then local is_a_git_repo_symbol="±"; fi
 	if [[ -z "${is_a_git_repo_color}" ]]; then local is_a_git_repo_color="$violet"; fi
-	if [[ -z "${has_untracked_files_symbol}" ]]; then local has_untracked_files_symbol="∿"; fi
+	if [[ -z "${has_untracked_files_symbol}" ]]; then local has_untracked_files_symbol="〜"; fi
 	if [[ -z "${has_untracked_files_color}" ]]; then local has_untracked_files_color="$red"; fi
-	if [[ -z "${has_adds_symbol}" ]]; then local has_adds_symbol="+"; fi
+	if [[ -z "${has_adds_symbol}" ]]; then local has_adds_symbol="✚"; fi
 	if [[ -z "${has_adds_color}" ]]; then local has_adds_color="$yellow"; fi
 	if [[ -z "${has_deletions_symbol}" ]]; then local has_deletions_symbol="-"; fi
 	if [[ -z "${has_deletions_color}" ]]; then local has_deletions_color="$red"; fi
-	if [[ -z "${has_deletions_cached_symbol}" ]]; then local has_deletions_cached_symbol="✖"; fi
+	if [[ -z "${has_deletions_cached_symbol}" ]]; then local has_deletions_cached_symbol="✘"; fi
 	if [[ -z "${has_deletions_cached_color}" ]]; then local has_deletions_cached_color="$yellow"; fi
 	if [[ -z "${has_modifications_symbol}" ]]; then local has_modifications_symbol="✎"; fi
 	if [[ -z "${has_modifications_color}" ]]; then local has_modifications_color="$red"; fi
 	if [[ -z "${has_modifications_cached_symbol}" ]]; then local has_modifications_cached_symbol="☲"; fi
 	if [[ -z "${has_modifications_cached_color}" ]]; then local has_modifications_cached_color="$yellow"; fi
-	if [[ -z "${ready_to_commit_symbol}" ]]; then local ready_to_commit_symbol="→"; fi
+	if [[ -z "${ready_to_commit_symbol}" ]]; then local ready_to_commit_symbol="✔"; fi
 	if [[ -z "${ready_to_commit_color}" ]]; then local ready_to_commit_color="$green"; fi
 	if [[ -z "${is_on_a_tag_symbol}" ]]; then local is_on_a_tag_symbol="⌫"; fi
 	if [[ -z "${is_on_a_tag_color}" ]]; then local is_on_a_tag_color="$yellow"; fi
 	if [[ -z "${needs_to_merge_symbol}" ]]; then local needs_to_merge_symbol="ᄉ"; fi
 	if [[ -z "${needs_to_merge_color}" ]]; then local needs_to_merge_color="$yellow"; fi
-	if [[ -z "${has_upstream_symbol}" ]]; then local has_upstream_symbol="⇅"; fi
+	if [[ -z "${has_upstream_symbol}" ]]; then local has_upstream_symbol="⬍"; fi
 	if [[ -z "${has_upstream_color}" ]]; then local has_upstream_color="$on"; fi
 	if [[ -z "${has_no_upstream_color}" ]]; then local has_no_upstream_color="$on"; fi
-	if [[ -z "${detached_symbol}" ]]; then local detached_symbol="⚯"; fi
+	if [[ -z "${detached_symbol}" ]]; then local detached_symbol="⫘"; fi
 	if [[ -z "${detached_color}" ]]; then local detached_color="$red"; fi
 	if [[ -z "${detached_current_commit_color}" ]]; then local detached_current_commit_color="$on"; fi
-	if [[ -z "${can_fast_forward_symbol}" ]]; then local can_fast_forward_symbol="»"; fi
+	if [[ -z "${can_fast_forward_symbol}" ]]; then local can_fast_forward_symbol="⋙"; fi
 	if [[ -z "${can_fast_forward_color}" ]]; then local can_fast_forward_color="$on"; fi
 	if [[ -z "${has_diverged_symbol}" ]]; then local has_diverged_symbol="Ⴤ"; fi
 	if [[ -z "${has_diverged_color}" ]]; then local has_diverged_color="$red"; fi
-	if [[ -z "${rebase_tracking_branch_symbol}" ]]; then local rebase_tracking_branch_symbol="↶"; fi
+	if [[ -z "${rebase_tracking_branch_symbol}" ]]; then local rebase_tracking_branch_symbol="⬿"; fi
 	if [[ -z "${rebase_tracking_branch_color}" ]]; then local rebase_tracking_branch_color="$reset"; fi
 	if [[ -z "${merge_tracking_branch_symbol}" ]]; then local merge_tracking_branch_symbol="ᄉ"; fi
 	if [[ -z "${merge_tracking_branch_color}" ]]; then local merge_tracking_branch_color="$reset"; fi
-	if [[ -z "${should_push_symbol}" ]]; then local should_push_symbol="↑"; fi
+	if [[ -z "${should_push_symbol}" ]]; then local should_push_symbol="⤊"; fi
 	if [[ -z "${should_push_color}" ]]; then local should_push_color="$on"; fi
 	if [[ -z "${has_stashes_symbol}" ]]; then local has_stashes_symbol="★"; fi
 	if [[ -z "${has_stashes_color}" ]]; then local has_stashes_color="$yellow"; fi
