@@ -1,7 +1,7 @@
 oh-my-zsh-git
 =============
 
-This plugin is an opinionated git prompt status, tailored for [**oh-my-zsh**](https://github.com/robbyrussell/oh-my-zsh). It is based on the work of [fabulous work](https://github.com/arialdomartini/oh-my-git/) of Arialdo Martini.
+This plugin is an opinionated git prompt status, tailored for [**oh-my-zsh**](https://github.com/robbyrussell/oh-my-zsh). It is based on the work of [fabulous work](https://github.com/arialdomartini/oh-my-git/) of Arialdo Martini, but has been completely rewritten to avoid shortcoming and enable more features na despecially a nice oh-my-zsh integration.
 
 In other word it is _oh_my_git_ for _oh_my_zsh_.
 
