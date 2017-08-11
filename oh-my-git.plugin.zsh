@@ -117,6 +117,8 @@ function oh_my_git_info {
 	fi
 	
 	if [[ $is_a_git_repo == true ]]; then
+		local short_sha=${current_commit_hash:0:7} # review as short sha can have collision
+	
 		local current_branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 		if [[ $current_branch == 'HEAD' ]]; then
 		    local detached=true;
