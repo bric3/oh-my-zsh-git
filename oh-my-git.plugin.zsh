@@ -103,43 +103,94 @@ function oh_my_git_info {
 	if [[ -z "${display_git_current_action}" ]]; then local display_git_current_action=false; fi
 
 	# Early return if git repo is configured to be hidden
-	if [[ "$(git config --get oh-my-zsh.hide-status)" == "1" ]]; then return; fi
+	if [[ "$(git config --get oh-my-zsh.hide-status)" == "1" ]]; then
+	    return;
+	fi
 	# if [[ "$(git config --get oh-my-git.enabled)" != "true" ]]; then return; fi
 
 	# Git info
 	local current_commit_hash=$(git rev-parse HEAD 2> /dev/null)
-	if [[ -n $current_commit_hash ]]; then local is_a_git_repo=true; else local is_a_git_repo=false; fi
+	if [[ -n $current_commit_hash ]]; then
+	    local is_a_git_repo=true;
+	else
+	    local is_a_git_repo=false;
+	fi
 	
 	if [[ $is_a_git_repo == true ]]; then
 		local current_branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-		if [[ $current_branch == 'HEAD' ]]; then local detached=true; else local detached=false; fi
+		if [[ $current_branch == 'HEAD' ]]; then
+		    local detached=true;
+		else
+		    local detached=false;
+		fi
 	
 		local number_of_logs=$(git log --pretty=oneline -n1 2> /dev/null | wc -l | tr -d ' ')
 		if [[ $number_of_logs -eq 0 ]]; then
-			local just_init=true
+			local just_init=true;
 		else
 			local upstream=$(git rev-parse --symbolic-full-name --abbrev-ref @{upstream} 2> /dev/null)
-			if [[ -n "${upstream}" && "${upstream}" != "@{upstream}" ]]; then local has_upstream=true; else local has_upstream=false; fi
+			local short_upstream="${upstream//\/$current_branch/}"
+			if [[ -n "${upstream}" && "${upstream}" != "@{upstream}" ]]; then
+			    local has_upstream=true;
+			else
+			    local has_upstream=false;
+			fi
 
 			local git_status="$(git status --porcelain 2> /dev/null)"
 		
-			if [[ $git_status =~ ($'\n'|^).M ]]; then local has_modifications=true; else local has_modifications=false; fi
+            if [[ -z $git_status ]]; then
+                local is_clean=true;
+            fi
+
+			if [[ $git_status =~ ($'\n'|^).M ]]; then
+			    local has_modifications=true;
+			else
+			    local has_modifications=false;
+			fi
 		
-			if [[ $git_status =~ ($'\n'|^)M ]]; then local has_modifications_cached=true; else local has_modifications_cached=false; fi
+			if [[ $git_status =~ ($'\n'|^)M ]]; then
+			    local has_modifications_cached=true;
+			else
+			    local has_modifications_cached=false;
+			fi
 		
-			if [[ $git_status =~ ($'\n'|^)A ]]; then local has_adds=true; else local has_adds=false; fi
+			if [[ $git_status =~ ($'\n'|^)A ]]; then
+			    local has_adds=true;
+			else
+			    local has_adds=false;
+			fi
 		
-			if [[ $git_status =~ ($'\n'|^).D ]]; then local has_deletions=true; else local has_deletions=false; fi
+			if [[ $git_status =~ ($'\n'|^).D ]]; then
+			    local has_deletions=true;
+			else
+			    local has_deletions=false;
+			fi
 		
-			if [[ $git_status =~ ($'\n'|^)D ]]; then local has_deletions_cached=true; else local has_deletions_cached=false; fi
+			if [[ $git_status =~ ($'\n'|^)D ]]; then
+			    local has_deletions_cached=true;
+			else
+			    local has_deletions_cached=false;
+			fi
 		
-			if [[ $git_status =~ ($'\n'|^)[MAD] && ! $git_status =~ ($'\n'|^).[MAD\?] ]]; then local ready_to_commit=true; else local ready_to_commit=false; fi
+			if [[ $git_status =~ ($'\n'|^)[MAD] && ! $git_status =~ ($'\n'|^).[MAD\?] ]]; then
+			    local ready_to_commit=true;
+			else
+			    local ready_to_commit=false;
+			fi
 		
 			local number_of_untracked_files=`echo $git_status | grep -c "^??"`
-			if [[ $number_of_untracked_files -gt 0 ]]; then local has_untracked_files=true; else local has_untracked_files=false; fi
+			if [[ $number_of_untracked_files -gt 0 ]]; then
+			     local has_untracked_files=true;
+			else
+			     local has_untracked_files=false;
+			fi
 		
-			local tag_at_current_commit=$(git describe --exact-match --tags $current_commit_hash 2> /dev/null)
-			if [[ -n $tag_at_current_commit ]]; then local is_on_a_tag=true; else local is_on_a_tag=false; fi
+			local tag_name=$(git describe --exact-match --tags $current_commit_hash 2> /dev/null)
+			if [[ -n $tag_name ]]; then
+			    local is_on_a_tag=true;
+			else
+			    local is_on_a_tag=false;
+			fi
 		
 			local has_diverged=false
 			local can_fast_forward=false
@@ -239,7 +290,7 @@ function oh_my_git_info {
 			oh_my_git_string+=" ${is_on_a_tag_color}${is_on_a_tag_symbol}${reset}";
 		fi
 		if [[ ${display_tag_name} == true && ${is_on_a_tag} == true ]]; then
-			oh_my_git_string+=" ${tag_name_color}[${tag_at_current_commit}]${reset}";
+			oh_my_git_string+=" ${tag_name_color}[${tag_name}]${reset}";
 		fi
 		
 		if [[ $display_git_current_action == "left" ]]; then
