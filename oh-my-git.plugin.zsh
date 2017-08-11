@@ -130,6 +130,13 @@ function oh_my_git_info {
 		if [[ $number_of_logs -eq 0 ]]; then
 			local just_init=true;
 		else
+			local remote_hosts="$(git remote -v 2> /dev/null | grep "github")"
+			if [[ -n ${remote_hosts} ]]; then
+				local is_hosted_in_github=true;
+			else
+				local is_hosted_in_github=false;
+			fi
+
 			local upstream=$(git rev-parse --symbolic-full-name --abbrev-ref @{upstream} 2> /dev/null)
 			local short_upstream="${upstream//\/$current_branch/}"
 			if [[ -n "${upstream}" && "${upstream}" != "@{upstream}" ]]; then
