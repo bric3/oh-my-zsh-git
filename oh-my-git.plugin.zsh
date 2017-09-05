@@ -26,16 +26,16 @@ function oh_my_git_info {
 
     # Colors
     if [ -n "$ZSH_VERSION" ]; then
-        local on="${omg_on:-%B}";
-        local off="${omg_off:-%b}";
-        local red="${omg_red:-%F{red}}";
-        local green="${omg_green:-%F{green}}";
-        local yellow="${omg_yellow:-%F{yellow}}";
-        local violet="${omg_violet:-%F{magenta}}";
-        local reset="${omg_reset:-%{%f%k%b%}}";
+        on="${omg_on:-%B}";
+        off="${omg_off:-%b}";
+        red="${omg_red:-%F{red}}";
+        green="${omg_green:-%F{green}}";
+        yellow="${omg_yellow:-%F{yellow}}";
+        violet="${omg_violet:-%F{magenta}}";
+        reset="${omg_reset:-%{%f%k%b%}}";
     else
         local on="${omg_on:-\[\e[0;37m\]}";
-        local off="${omg_off:-\[\e[1;30m\]}";
+        local off="${omg_off:-\[\e[1;30m\]}";  
         local red="${omg_red:-\[\e[0;31m\]}";
         local green="${omg_green:-\[\e[0;32m\]}";
         local yellow="${omg_yellow:-\[\e[0;33m\]}";
@@ -201,31 +201,69 @@ function oh_my_git_info {
                 local is_on_a_tag=false;
             fi
         
-            local has_diverged=false
-            local can_fast_forward=false
-        
             if [[ $has_upstream == true ]]; then
                 local commits_diff="$(git log --pretty=oneline --topo-order --left-right ${current_commit_hash}...${upstream} 2> /dev/null)"
-                local commits_ahead=$(grep -c "^<" <<< "$commits_diff");
-                local commits_behind=$(grep -c "^>" <<< "$commits_diff");
+                local number_of_commits_ahead=$(grep -c "^<" <<< "$commits_diff")
+                local number_of_commits_behind=$(grep -c "^>" <<< "$commits_diff")
+
+                if [[ ${number_of_commits_behind} -gt 0 ]]; then
+                    local commits_behind=true
+                else
+                    local commits_behind=false
+                fi
+
+                if [[ ${number_of_commits_ahead} -gt 0 ]]; then
+                    local commits_ahead=true
+                    local should_push=true
+                else
+                    local commits_ahead=false
+                    local should_push=false
+                fi
+
+                if [[ ${number_of_commits_ahead} -gt 0 && ${number_of_commits_behind} -gt 0 ]]; then
+                    local has_diverged=true
+                else
+                    local has_diverged=false
+                fi
+
+                if [[ ${number_of_commits_ahead} -eq 0 && ${number_of_commits_behind} -gt 0 ]]; then
+                    local can_fast_forward=true
+                else
+                    local can_fast_forward=false
+                fi
             fi
-            if [[ $commits_ahead -gt 0 && $commits_behind -gt 0 ]]; then
-                local has_diverged=true
+
+            if [[ ${detached} == false ]]; then
+                local will_rebase=$(git config --get branch.${current_branch}.rebase 2> /dev/null)
+                local rebase_tracking_branch=${will_rebase}
+                if [[ -z ${will_rebase} ]]; then
+                    local merge_tracking_branch=true
+                fi
             fi
-            if [[ $commits_ahead -eq 0 && $commits_behind -gt 0 ]]; then
-                local can_fast_forward=true
-            fi
-        
-            local will_rebase=$(git config --get branch.${current_branch}.rebase 2> /dev/null)
-        
-            if [[ -f ${GIT_DIR:-.git}/refs/stash ]]; then
-                local number_of_stashes=$(wc -l 2> /dev/null < ${GIT_DIR:-.git}/refs/stash | tr -d ' ')
+
+            local number_of_stashes="$(git stash list 2>/dev/null | grep '^stash@{[0-9]\+}:' | wc -l)"
+            if [[ ${number_of_stashes} -gt 0 ]]; then
+                local has_stashes=true
             else
-                local number_of_stashes=0
+                local has_stashes=false
             fi
-            if [[ $number_of_stashes -gt 0 ]]; then local has_stashes=true; else local has_stashes=false; fi
-        fi
-    fi
+
+#            if [[ -f ${GIT_DIR:-.git}/refs/stash ]]; then
+#                local number_of_stashes=${$(wc -l 2> /dev/null < ${GIT_DIR:-.git}/refs/stash | tr -d ' '):-0};
+#            fi
+#
+#            if [[ $number_of_stashes -gt 0 ]]; then
+#                local has_stashes=true;
+#            else
+#                local has_stashes=false;
+#            fi
+
+
+        
+        fi #end just_init=false
+
+        local git_action="$(git_current_action)"
+    fi # end git_repo=true
 
 
     if [[ ${is_a_git_repo} == true ]]; then
@@ -317,7 +355,6 @@ function oh_my_git_info {
     # collapse contiguous spaces including new lines
     echo $(echo "${oh_my_git_string}")
 }
-
 
 # based on bash __git_ps1 to read branch and current action
 function git_current_action () {
