@@ -22,20 +22,18 @@
 
 
 function oh_my_git_info {
-    local oh_my_git_string="";
-
     # Colors
-    if [ -n "$ZSH_VERSION" ]; then
-        on="${omg_on:-%B}";
-        off="${omg_off:-%b}";
-        red="${omg_red:-%F{red}}";
-        green="${omg_green:-%F{green}}";
-        yellow="${omg_yellow:-%F{yellow}}";
-        violet="${omg_violet:-%F{magenta}}";
-        reset="${omg_reset:-%{%f%k%b%}}";
+    if [[ -n "$ZSH_VERSION" ]]; then
+        local on="${omg_on:-%B}";
+        local off="${omg_off:-%b}";
+        local red="${omg_red:-%F{red}}";
+        local green="${omg_green:-%F{green}}";
+        local yellow="${omg_yellow:-%F{yellow}}";
+        local violet="${omg_violet:-%F{magenta}}";
+        local reset="${omg_reset:-%{%f%k%b%}}";
     else
         local on="${omg_on:-\[\e[0;37m\]}";
-        local off="${omg_off:-\[\e[1;30m\]}";  
+        local off="${omg_off:-\[\e[1;30m\]}";
         local red="${omg_red:-\[\e[0;31m\]}";
         local green="${omg_green:-\[\e[0;32m\]}";
         local yellow="${omg_yellow:-\[\e[0;33m\]}";
@@ -45,7 +43,7 @@ function oh_my_git_info {
 
     # Some unicode chars : ⚯᠁ះ⊶☍⧲⧬⧂»⇅〜✚-⫘
     # ⚙ ♨ ♋ ㍖♫𝄢♬♪𝄆𝄇𝄈𝄐〖⦖〘〙》〰︴෴⸚⌁⌀⌖𝌁⿓⎃☢☣☠☤⚕☸⚔☉♁☄⚚⚛  ⌘⎋⏎⌤⌥⌃⌅⇧⇪⌫⌦⇥⬆⬇⬍✔✘✖✭☲✎⌫ᄉ⇅⚯»Ⴤ↶↑±
-    # ⇪ ⇫ ⇬ ⇭ ⇮ ⇯ ⇳ ⥮ ⥯ ↥ ↧ ↞ ↠ ↟ ↡ ➟ ➠ 
+    # ⇪ ⇫ ⇬ ⇭ ⇮ ⇯ ⇳ ⥮ ⥯ ↥ ↧ ↞ ↠ ↟ ↡ ➟ ➠
     # Symbols
     if [[ -z "${is_a_git_repo_symbol}" ]]; then local is_a_git_repo_symbol="±"; fi
     if [[ -z "${is_a_git_repo_color}" ]]; then local is_a_git_repo_color="$violet"; fi
@@ -115,22 +113,22 @@ function oh_my_git_info {
     else
         local is_a_git_repo=false;
     fi
-    
+
     if [[ $is_a_git_repo == true ]]; then
         local short_sha=${current_commit_hash:0:7} # review as short sha can have collision
-    
+
         local current_branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
         if [[ $current_branch == 'HEAD' ]]; then
             local detached=true;
         else
             local detached=false;
         fi
-    
-        local number_of_logs=$(git log --pretty=oneline -n1 2> /dev/null | wc -l | tr -d ' ')
+
+        local number_of_logs=$(git log --pretty=oneline -n1 2> /dev/null | wc -l | tr -d ' ');
         if [[ $number_of_logs -eq 0 ]]; then
             local just_init=true;
         else
-            local remote_hosts="$(git remote -v 2> /dev/null | grep "github")"
+            local remote_hosts="$(git remote -v 2> /dev/null | grep "github")";
             if [[ -n ${remote_hosts} ]]; then
                 local is_hosted_in_github=true;
             else
@@ -145,8 +143,8 @@ function oh_my_git_info {
                 local has_upstream=false;
             fi
 
-            local git_status="$(git status --porcelain 2> /dev/null)"
-        
+            local git_status="$(git status --porcelain 2> /dev/null)";
+
             if [[ -z $git_status ]]; then
                 local is_clean=true;
             fi
@@ -156,120 +154,110 @@ function oh_my_git_info {
             else
                 local has_modifications=false;
             fi
-        
+
             if [[ $git_status =~ ($'\n'|^)M ]]; then
                 local has_modifications_cached=true;
             else
                 local has_modifications_cached=false;
             fi
-        
+
             if [[ $git_status =~ ($'\n'|^)A ]]; then
                 local has_adds=true;
             else
                 local has_adds=false;
             fi
-        
+
             if [[ $git_status =~ ($'\n'|^).D ]]; then
                 local has_deletions=true;
             else
                 local has_deletions=false;
             fi
-        
+
             if [[ $git_status =~ ($'\n'|^)D ]]; then
                 local has_deletions_cached=true;
             else
                 local has_deletions_cached=false;
             fi
-        
+
             if [[ $git_status =~ ($'\n'|^)[MAD] && ! $git_status =~ ($'\n'|^).[MAD\?] ]]; then
                 local ready_to_commit=true;
             else
                 local ready_to_commit=false;
             fi
-        
-            local number_of_untracked_files=`echo $git_status | grep -c "^??"`
+
+            local number_of_untracked_files=`echo $git_status | grep -c "^??"`;
             if [[ $number_of_untracked_files -gt 0 ]]; then
                  local has_untracked_files=true;
             else
                  local has_untracked_files=false;
             fi
-        
+
             local tag_name=$(git describe --exact-match --tags $current_commit_hash 2> /dev/null)
             if [[ -n $tag_name ]]; then
                 local is_on_a_tag=true;
             else
                 local is_on_a_tag=false;
             fi
-        
+
             if [[ $has_upstream == true ]]; then
                 local commits_diff="$(git log --pretty=oneline --topo-order --left-right ${current_commit_hash}...${upstream} 2> /dev/null)"
                 local number_of_commits_ahead=$(grep -c "^<" <<< "$commits_diff")
                 local number_of_commits_behind=$(grep -c "^>" <<< "$commits_diff")
 
                 if [[ ${number_of_commits_behind} -gt 0 ]]; then
-                    local commits_behind=true
+                    local commits_behind=true;
                 else
-                    local commits_behind=false
+                    local commits_behind=false;
                 fi
 
                 if [[ ${number_of_commits_ahead} -gt 0 ]]; then
-                    local commits_ahead=true
-                    local should_push=true
+                    local commits_ahead=true;
+                    local should_push=true;
                 else
-                    local commits_ahead=false
-                    local should_push=false
+                    local commits_ahead=false;
+                    local should_push=false;
                 fi
 
                 if [[ ${number_of_commits_ahead} -gt 0 && ${number_of_commits_behind} -gt 0 ]]; then
-                    local has_diverged=true
+                    local has_diverged=true;
                 else
-                    local has_diverged=false
+                    local has_diverged=false;
                 fi
 
                 if [[ ${number_of_commits_ahead} -eq 0 && ${number_of_commits_behind} -gt 0 ]]; then
-                    local can_fast_forward=true
+                    local can_fast_forward=true;
                 else
-                    local can_fast_forward=false
+                    local can_fast_forward=false;
                 fi
             fi
 
             if [[ ${detached} == false ]]; then
-                local will_rebase=$(git config --get branch.${current_branch}.rebase 2> /dev/null)
-                local rebase_tracking_branch=${will_rebase}
+                local will_rebase=$(git config --get branch.${current_branch}.rebase 2> /dev/null);
+                local rebase_tracking_branch=${will_rebase};
                 if [[ -z ${will_rebase} ]]; then
-                    local merge_tracking_branch=true
+                    local merge_tracking_branch=true;
                 fi
             fi
 
             local number_of_stashes="$(git stash list 2>/dev/null | grep '^stash@{[0-9]\+}:' | wc -l)"
             if [[ ${number_of_stashes} -gt 0 ]]; then
-                local has_stashes=true
+                local has_stashes=true;
             else
-                local has_stashes=false
+                local has_stashes=false;
             fi
 
-#            if [[ -f ${GIT_DIR:-.git}/refs/stash ]]; then
-#                local number_of_stashes=${$(wc -l 2> /dev/null < ${GIT_DIR:-.git}/refs/stash | tr -d ' '):-0};
-#            fi
-#
-#            if [[ $number_of_stashes -gt 0 ]]; then
-#                local has_stashes=true;
-#            else
-#                local has_stashes=false;
-#            fi
+        fi # end just_init=false
 
-
-        
-        fi #end just_init=false
-
-        local git_action="$(git_current_action)"
+        local git_action="$(git_current_action)";
     fi # end git_repo=true
 
 
+    # Start Display
+    local oh_my_git_string="";
     if [[ ${is_a_git_repo} == true ]]; then
         oh_my_git_string="
             $(echo_if_true ${display_git_symbol} ${is_a_git_repo_symbol} ${is_a_git_repo_color})
-            
+
             $(echo_if_true ${has_stashes} ${has_stashes_symbol} ${has_stashes_color})
             $(echo_if_true ${has_untracked_files} ${has_untracked_files_symbol} ${has_untracked_files_color})
             $(echo_if_true ${has_adds} ${has_adds_symbol} ${has_adds_color})
@@ -287,7 +275,7 @@ function oh_my_git_info {
         if [[ ${display_has_upstream} == true ]]; then
             oh_my_git_string+="$(echo_if_true ${has_upstream} ${has_upstream_symbol} ${has_upstream_color})";
         fi
-        
+
         if [[ ${detached} == true ]]; then
             if [[ ${just_init} == true ]]; then
                 oh_my_git_string+="${detached_color}detached${reset}";
@@ -296,12 +284,12 @@ function oh_my_git_info {
             fi
         else
             if [[ $has_upstream == true ]]; then
-                if [[ ${will_rebase} == true ]]; then 
-                    type_of_upstream="${rebase_tracking_branch_color}${rebase_tracking_branch_symbol}${reset}"; 
+                if [[ ${will_rebase} == true ]]; then
+                    type_of_upstream="${rebase_tracking_branch_color}${rebase_tracking_branch_symbol}${reset}";
                 else
-                    type_of_upstream="${merge_tracking_branch_color}${merge_tracking_branch_symbol}${reset}"; 
+                    type_of_upstream="${merge_tracking_branch_color}${merge_tracking_branch_symbol}${reset}";
                 fi
-        
+
                 if [[ ${has_diverged} == true ]]; then
                     oh_my_git_string+="
                         ${commits_behind_color}${commits_behind_symbol}${commits_behind}${reset}
@@ -320,40 +308,40 @@ function oh_my_git_info {
                         ";
                     fi
                 fi
-        
+
                 oh_my_git_string+="
                     (${current_branch_color}${current_branch}${reset}
                         ${type_of_upstream}
                         ${upstream//\/$current_branch/})";
-        
+
             else
                 oh_my_git_string+="
                     ${has_no_upstream_color}(${current_branch_color}${current_branch}${reset}${has_no_upstream_color})${reset}
                 ";
             fi
         fi
-        
+
         if [[ ${display_tag} == true ]]; then
             oh_my_git_string+=" ${is_on_a_tag_color}${is_on_a_tag_symbol}${reset}";
         fi
         if [[ ${display_tag_name} == true && ${is_on_a_tag} == true ]]; then
             oh_my_git_string+=" ${tag_name_color}[${tag_name}]${reset}";
         fi
-        
+
         if [[ $display_git_current_action == "left" ]]; then
             oh_my_git_string="$(git_current_action $red $reset) ${oh_my_git_string}";
         elif [[ $display_git_current_action == "right" ]]; then
             oh_my_git_string="${oh_my_git_string} $(git_current_action $red $reset)";
         fi
-        
+
         # clean up leading and trailing spaces, (prefix and suffix might add them if wanted)
         oh_my_git_string=$(trim "$oh_my_git_string");
-        
+
         oh_my_git_string="${omg_prefix}${oh_my_git_string}${reset}${omg_suffix}";
     fi
 
     # collapse contiguous spaces including new lines
-    echo $(echo "${oh_my_git_string}")
+    echo $(echo "${oh_my_git_string}");
 }
 
 # based on bash __git_ps1 to read branch and current action
@@ -388,21 +376,21 @@ function git_current_action () {
             elif [ -f "$info/BISECT_LOG" ]
                 then
                 action=${is_bisecting:-"BISECTING"}
-            fi  
+            fi
         fi
-        
+
         if [[ -n $action ]]; then printf "%s" "${1-}$action${2-}"; fi
     fi
 }
 
 
 function echo_if_true {
-    flag=$1
-    symbol=$2
+    local flag=$1;
+    local symbol=$2;
     if [[ -n $3 ]]; then
-        coloron=$3
+        coloron=$3;
     else
-        coloron=${on}
+        coloron=${on};
     fi
     if [[ ${use_color_off} == false && ${flag} == false ]]; then symbol=' '; fi
     if [[ $flag == true ]]; then color="${coloron}"; else color="${off}"; fi
@@ -415,19 +403,19 @@ function echo_if_true {
 
 
 if [ -n "$ZSH_VERSION" ]; then
-   function trim() {
+    function trim() {
         leading_trimmed="${1##+([[:space:]])}";
         trimmed="${leading_trimmed%%+([[:space:]])}";
         echo "$trimmed";
-   }
+    }
 elif [ -n "$BASH_VERSION" ]; then
-   function trim() {
-       leading_trimmed="${1#"${1%%[![:space:]]*}"}";
-       trimmed="${leading_trimmed%"${leading_trimmed##*[![:space:]]}"}";
-       echo "$trimmed";
-   }
+    function trim() {
+        leading_trimmed="${1#"${1%%[![:space:]]*}"}";
+        trimmed="${leading_trimmed%"${leading_trimmed##*[![:space:]]}"}";
+        echo "$trimmed";
+    }
 else
-   function trim() {
-       return $1;
-   }
+    function trim() {
+        return $1;
+    }
 fi
