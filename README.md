@@ -1,7 +1,7 @@
 oh-my-zsh-git
 =============
 
-This plugin is an opinionated git prompt status, tailored for [**oh-my-zsh**](https://github.com/robbyrussell/oh-my-zsh). It is based on the work of [fabulous work](https://github.com/arialdomartini/oh-my-git/) of Arialdo Martini, but has been completely rewritten to avoid shortcoming and enable more features na despecially a nice oh-my-zsh integration.
+This plugin is an opinionated git prompt status, tailored for [**oh-my-zsh**](https://github.com/robbyrussell/oh-my-zsh). It is based on the [fabulous work](https://github.com/arialdomartini/oh-my-git/) of Arialdo Martini, but has been completely rewritten to avoid shortcoming and enable more features and especially a nice oh-my-zsh integration.
 
 In other word it is _oh_my_git_ for _oh_my_zsh_.
 
@@ -11,7 +11,7 @@ This derivative fork is taken from my pull request on his project [there](https:
 
 ## Reading the abstract
 
-This new git information script (`oh-my-git.plugin.zsh`) has a few bullet points
+This new git information script (`oh-my-zsh-git.plugin.zsh`) has a few bullet points:
 
    * Show more information than usual git prompt status function here and there, thanks to Arialdo Martini for that
    * Configurable color and symbols (or string)
@@ -23,7 +23,7 @@ This new git information script (`oh-my-git.plugin.zsh`) has a few bullet points
    * Showing current git action (`REBASE-i`, `REBASE-m`, `REBASE`, `AM/REBASE`, `MERGING`, `BISECTING`, `CHERRY-PICKING`)
    * External configuration is optional, defaults are already configured
 
-On a technical ground 
+On a technical ground:
 
    * The shell script file and function are more human compatible. And this layout is directly working with oh-my-zsh plugins layout.
    * While designed with oh-my-zsh in mind it is does not depend on a specific shell
@@ -38,7 +38,7 @@ Install a clone of this repository in oh-my-zsh plugin [custom folder](https://g
 
 ```bash
 mkdir -p $ZSH_CUSTOM/plugins
-git clone git@github.com:bric3/oh-my-git-4-oh-my-zsh.git $ZSH_CUSTOM/plugins/oh-my-git
+git clone git@github.com:bric3/oh-my-zsh-git.git $ZSH_CUSTOM/plugins/oh-my-git
 ```
 
 This will make _oh-my-git_ available as a plugin for _oh-my-zsh_. Now you still need to activate it. In your `.zshrc` just activate the plugin by adding `oh-my-git` to the `plugins` variable :
@@ -65,7 +65,7 @@ RPROMPT='$(oh_my_git_info)'
 
 ## Customize it
 
-In order to customize either the symbol, the color or if some symbol should be displayed define on of these varaible in your oh-my-zsh theme.
+In order to customize either the symbol, the color or if some symbol should be displayed define on of these variable in your oh-my-zsh theme.
 
 For example in your theme set the following variables to have a prompt info that will look like : `[(master ᄉ origin)]`
 
