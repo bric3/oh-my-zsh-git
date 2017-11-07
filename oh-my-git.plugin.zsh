@@ -291,33 +291,24 @@ function oh_my_git_info {
                 fi
 
                 if [[ ${has_diverged} == true ]]; then
-                    oh_my_git_string+="
-                        ${commits_behind_color}${commits_behind_symbol}${commits_behind}${reset}
-                        ${has_diverged_color}${has_diverged_symbol}${reset}
-                        ${commits_ahead_color}${commits_ahead_symbol}${commits_ahead}${reset}
-                    ";
+                    oh_my_git_string+="${commits_behind_color}${commits_behind_symbol}${commits_behind}${reset}
+                                       ${has_diverged_color}${has_diverged_symbol}${reset}
+                                       ${commits_ahead_color}${commits_ahead_symbol}${commits_ahead}${reset}";
                 else
                     if [[ ${commits_behind} -gt 0  ]]; then
-                        oh_my_git_string+="
-                            ${can_fast_forward_color}${commits_behind_symbol}${commits_behind} ${can_fast_forward_symbol}${reset}
-                        ";
+                        oh_my_git_string+="${can_fast_forward_color}${commits_behind_symbol}${commits_behind}
+                                           ${can_fast_forward_symbol}${reset}";
                     fi
                     if [[ ${commits_ahead} -gt 0 ]]; then
-                        oh_my_git_string+="
-                            ${should_push_color}${should_push_symbol} ${commits_ahead_symbol}${commits_ahead} ${reset}
-                        ";
+                        oh_my_git_string+="${should_push_color}${should_push_symbol}
+                                           ${commits_ahead_symbol}${commits_ahead}${reset}";
                     fi
                 fi
 
-                oh_my_git_string+="
-                    (${current_branch_color}${current_branch}${reset}
-                        ${type_of_upstream}
-                        ${upstream//\/$current_branch/})";
+                oh_my_git_string+="(${current_branch_color}${current_branch}${reset} ${type_of_upstream} ${upstream//\/$current_branch/})";
 
             else
-                oh_my_git_string+="
-                    ${has_no_upstream_color}(${current_branch_color}${current_branch}${reset}${has_no_upstream_color})${reset}
-                ";
+                oh_my_git_string+="${has_no_upstream_color}(${current_branch_color}${current_branch}${reset}${has_no_upstream_color})${reset}";
             fi
         fi
 
