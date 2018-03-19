@@ -120,7 +120,7 @@ needs_to_merge_symbol              | `ᄉ`
 needs_to_merge_color               | `$yellow`
 has_upstream_symbol                | `⇅`
 has_upstream_color                 | `$on`
-has_no_upstream_symbol             | ` ⃢`
+has_no_upstream_symbol             | `☉`
 has_no_upstream_color              | `$on`
 detached_symbol                    | `⚯`
 detached_color                     | `$red`

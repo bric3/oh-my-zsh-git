@@ -69,7 +69,7 @@ function oh_my_git_info {
 	if [[ -z "${needs_to_merge_color}" ]]; then local needs_to_merge_color="$yellow"; fi
 	if [[ -z "${has_upstream_symbol}" ]]; then local has_upstream_symbol="⬍"; fi
 	if [[ -z "${has_upstream_color}" ]]; then local has_upstream_color="$on"; fi
-	if [[ -z "${has_no_upstream_symbol}" ]]; then local has_no_upstream_symbol=" ⃢ "; fi
+	if [[ -z "${has_no_upstream_symbol}" ]]; then local has_no_upstream_symbol="☉"; fi
 	if [[ -z "${has_no_upstream_color}" ]]; then local has_no_upstream_color="$on"; fi
 	if [[ -z "${detached_symbol}" ]]; then local detached_symbol="⫘"; fi
 	if [[ -z "${detached_color}" ]]; then local detached_color="$red"; fi
@@ -188,7 +188,11 @@ function oh_my_git_info {
 		";
 
 		if [[ ${display_has_upstream} == true ]]; then
-			oh_my_git_string+="$(echo_if_true ${has_upstream} ${has_upstream_symbol} ${has_upstream_color})";
+			if [[ ${has_upstream} == true ]]; then
+				oh_my_git_string+="$(echo_if_true true ${has_upstream_symbol} ${has_upstream_color})";
+			else
+				oh_my_git_string+="$(echo_if_true true ${has_no_upstream_symbol} ${has_no_upstream_color})";
+			fi
 		fi
 		
 		if [[ ${detached} == true ]]; then
@@ -231,7 +235,7 @@ function oh_my_git_info {
 		
 			else
 				oh_my_git_string+="
-					${has_no_upstream_color}(${current_branch_color}${current_branch}${reset}${has_no_upstream_color}${has_no_upstream_symbol})${reset}
+					${has_no_upstream_color}(${current_branch_color}${current_branch}${reset}${has_no_upstream_color})${reset}
 				";
 			fi
 		fi
