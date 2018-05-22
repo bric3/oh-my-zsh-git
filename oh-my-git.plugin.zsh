@@ -89,6 +89,7 @@ function oh_my_git_info {
 	if [[ -z "${commits_behind_color}" ]]; then local commits_behind_color="$reset"; fi
 	if [[ -z "${commits_ahead_symbol}" ]]; then local commits_ahead_symbol="+"; fi
 	if [[ -z "${commits_ahead_color}" ]]; then local commits_ahead_color="$reset"; fi
+	if [[ -z "${branch_color}" ]]; then local branch_color="$reset"; fi
 	if [[ -z "${current_branch_color}" ]]; then local current_branch_color="$green"; fi
 	if [[ -z "${tag_name_color}" ]]; then local tag_name_color="$yellow"; fi
 
@@ -224,9 +225,9 @@ function oh_my_git_info {
 				fi
 		
 				oh_my_git_string+="
-					(${current_branch_color}${current_branch}${reset}
+					${branch_color}(${current_branch_color}${current_branch}${reset}
 						${type_of_upstream}
-						${upstream//\/$current_branch/})";
+						${branch_color}${upstream//\/$current_branch/})";
 		
 			else
 				oh_my_git_string+="

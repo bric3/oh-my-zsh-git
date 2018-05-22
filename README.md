@@ -140,6 +140,7 @@ commits_behind_symbol              | `-`
 commits_behind_color               | `$reset`
 commits_ahead_symbol               | `+`
 commits_ahead_color                | `$reset`
+branch_color                       | `$reset`
 current_branch_color               | `$green`
 tag_name_color                     | `$yellow`
 
