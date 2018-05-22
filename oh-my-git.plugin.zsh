@@ -235,11 +235,13 @@ function oh_my_git_info {
 			fi
 		fi
 		
-		if [[ ${display_tag} == true ]]; then
-			oh_my_git_string+=" ${is_on_a_tag_color}${is_on_a_tag_symbol}${reset}";
-		fi
-		if [[ ${display_tag_name} == true && ${is_on_a_tag} == true ]]; then
-			oh_my_git_string+=" ${tag_name_color}[${tag_at_current_commit}]${reset}";
+		if [[ ${is_on_a_tag} == true ]]; then
+			if [[ ${display_tag} == true ]]; then
+				oh_my_git_string+=" ${is_on_a_tag_color}${is_on_a_tag_symbol}${reset}";
+			fi
+			if [[ ${display_tag_name} == true ]]; then
+				oh_my_git_string+=" ${tag_name_color}[${tag_at_current_commit}]${reset}";
+			fi
 		fi
 		
 		if [[ $display_git_current_action == "left" ]]; then
